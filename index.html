@@ -43,21 +43,26 @@
 
             </div>
         </div>
-        <div class="col-8" id="resultdisplay">result
-            
-            <div class="forecast">forecast</div>
 
+<!-- Weather results--------------------------------------------- -->
+        <!--==================================  -->
+
+<div class="col-8" id="resultdisplay">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat saepe dolore obcaecati repudiandae ex voluptatem cum aliquam assumenda suscipit debitis unde sunt voluptatum, tempore vel magni accusantium commodi quis enim.
+        <div class="forcastcontainer">
+            <div class="forecast">forecast</div>
         </div>
+</div>
+        <!-- end of weather result screen -->
     </div>
     </div>
     <!-- ======================================================= -->
 
 <!-- Getting API======================== -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript">
+<script type="text/javascript">
 
-var apiurl = "http://api.openweathermap.org/data/2.5/forecast?q={city name},{country code}"
-var apikey = "dd99e52f143f4e6c11a4199ea7714402"
+    var apiurl = "http://api.openweathermap.org/data/2.5/forecast?q={city name},{country code}"
+    var apikey = "dd99e52f143f4e6c11a4199ea7714402"
 
     $.ajax({
       url: apiurl,
