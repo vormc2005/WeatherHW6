@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-12">Weather Dashboard</h1>
+        </div>
+      </div>
+
+
+    <div class = "container buttonsgroup">
+
+    <!-- Cities list with bootstrap List buttons -->
+    <div class="row" id="cities">
+        <div class="col-4 searchcolumn">
+
+            <Div class="inputarea" id="search">
+                <input class = "searchcity" placeholder="Type city">
+                <button type="button" class="btn btn-pimary fas fa-search" id="searchbtn"></button>
+                
+            </Div>
+
+            <div class="cities">
+                <button type="button" class="list-group-item list-group-item-action">Washington DC</button>
+                <button type="button" class="list-group-item list-group-item-action">Los Angeles</button>
+                <button type="button" class="list-group-item list-group-item-action">Dallas</button>
+                <button type="button" class="list-group-item list-group-item-action">Miami</button>
+                <button type="button" class="list-group-item list-group-item-action">Seatle</button>
+                <button type="button" class="list-group-item list-group-item-action" >Boston</button>
+
+            </div>
+        </div>
+        <div class="col-8" id="resultdisplay">result
+            
+            <div class="forecast">forecast</div>
+
+        </div>
+    </div>
+    </div>
+    <!-- ======================================================= -->
+
+<!-- Getting API======================== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+
+var apiurl = "http://api.openweathermap.org/data/2.5/forecast?q={city name},{country code}"
+var apikey = "dd99e52f143f4e6c11a4199ea7714402"
+
+    $.ajax({
+      url: apiurl,
+      method: "GET"
+    }).then(function(response) {
+      console.log(response);
+      data:{
+          q: "Boston";
+        api_key: apikey;
+
+      }
+
+    });
+
+
+
+
+</script>
+</body>
+</html>
