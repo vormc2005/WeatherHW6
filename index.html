@@ -43,8 +43,10 @@
 <!-- Weather results--------------------------------------------- -->
         <!--==================================  -->
 
-<div class="col-8" id="resultdisplay">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat saepe dolore obcaecati repudiandae ex voluptatem cum aliquam assumenda suscipit debitis unde sunt voluptatum, tempore vel magni accusantium commodi quis enim.
-        
+<div class="col-8" id="resultdisplay">
+    
+    <div id="Weatherreport">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat saepe dolore obcaecati repudiandae ex voluptatem cum aliquam assumenda suscipit debitis unde sunt voluptatum, tempore vel magni accusantium commodi quis enim.
+</div>
 </div>
 
 <div class="container">
@@ -59,7 +61,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
+    $(document).ready(function(){
 
+      
         var savebtnsDiv = $("div#save-btns");
         var citiesarr = ["Washington DC", "New York", "Boston"]
 
@@ -82,16 +86,16 @@ renderLast();
 // =======================ajax not working yet
 
 var weatherLookUp = function(city){
-        var queryURL = "http://api.openweathermap.org/data/2.5/weather/";
+   
         $.ajax({
-          url: queryURL,
+          url: "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric" + "&APPID=9d9098e8b8edb39b819bbf8955b080a6",
           method: "GET",
-          data: {
-            q: city,
-            apikey: "9d9098e8b8edb39b819bbf8955b080a6"
-          }
+          dataType:"jsonp"
+          
+          
         }).then(function(response) {
-          $("#resultdisplay").text(JSON.stringify(response));
+            consol.log(response)
+        //   $("#Weatherreport").text(JSON.stringify(response));
         });
       }
 // =========================================
@@ -104,6 +108,8 @@ var weatherLookUp = function(city){
             console.log(city)
         });
 renderLast();
+
+});
 
 </script>
 </body>
