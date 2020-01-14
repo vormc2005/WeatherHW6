@@ -1,26 +1,29 @@
-.buttonsgroup{
-    padding: 20px;
-    margin-top: auto;
-}
+
 .searchcolumn{
     padding: 10px;
     gap: 20px;
-    background-color: brown;
+    background-color:#FAFAFA;
 }
 
 .forecast {
 
-    background-color: chartreuse;
+    background-color:#F1F1F1;
     height: 150px;
-    margin-top: 0px;
+   padding: 10px;
+   margin-top: 50px;
+   border:solid 1px grey;
     
 }
 
 #resultdisplay{
-    background-color: coral;
+    background-color:#FAFAFA;
+    border:solid 1px grey;
 }
-.forcastcontainer{
-    
+ #choices{ 
+    padding: 5px;
     border: solid 1px grey;
-    margin-bottom: 100px;
-}
+    margin-bottom: 5px;
+    margin-top: 5px;
+   width: 177px;
+   height: auto;
+} 
