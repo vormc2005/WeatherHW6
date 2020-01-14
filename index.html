@@ -45,9 +45,7 @@
 
 <div class="col-8" id="resultdisplay">
     
-    <div id="Weatherreport">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repellat saepe dolore obcaecati repudiandae ex voluptatem cum aliquam assumenda suscipit debitis unde sunt voluptatum, tempore vel magni accusantium commodi quis enim.
-</div>
-</div>
+    <div id="Weatherreport"></div>
 
 <div class="container">
     <div class="forecast">forecast</div>
@@ -61,9 +59,12 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
+
     $(document).ready(function(){
 
-      
+      // here, we are creating buttons
+        
+        var weatherScreen =$("div#Weatherreport");
         var savebtnsDiv = $("div#save-btns");
         var citiesarr = ["Washington DC", "New York", "Boston"]
 
@@ -78,37 +79,66 @@
            
         })
         
-        }   
-renderLast();
+        }  
+
+        var displayWeather = function(weatherObj) {
+            var date = weatherObj.dt;
+            var img1 = weatherObj.weather.icon;
+            var temp = weatherObj.main.temp;
+            var humidity = weatherObj.main.humidity
+            var weatherDiv = $("<div>");
+
+            var h3 = $("<h3>");
+            var img =$("<img>");
+            img.attr("src", img1);
+            h3.text(date);
+            var p1 = $("<p>");
+            p1.text("Temperature:" + temp);
+            var p2 = $("<p>");
+            p2.text("Humidity: " +humidity);
+
+            weatherDiv.append(h3);
+            weatherDiv.append(img)
+            weatherDiv.append(p1);
+            weatherDiv.append(p2);
+            weatherScreen.prepend(weatherDiv);
+            
+
+        }
+
 
 
 
 // =======================ajax not working yet
 
 var weatherLookUp = function(city){
-   
+            var queryURL ="http://api.openweathermap.org/data/2.5/weather/";
         $.ajax({
-          url: "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric" + "&APPID=9d9098e8b8edb39b819bbf8955b080a6",
+          url: queryURL,
           method: "GET",
-          dataType:"jsonp"
-          
-          
+          data:{
+            q: city,
+            APPID: "9d9098e8b8edb39b819bbf8955b080a6" 
+          }
         }).then(function(response) {
-            consol.log(response)
+            console.log(response)
         //   $("#Weatherreport").text(JSON.stringify(response));
+          displayWeather(response);
+          
         });
       }
+      
 // =========================================
-
+// Search Button=================================
         $("#searchbtn").on("click", function(event){
             event.preventDefault();
             var city = $("#city-input").val();
             citiesarr.push(city);
             renderLast();   
-            console.log(city)
+            weatherLookUp(city);
         });
-renderLast();
 
+        renderLast();
 });
 
 </script>
