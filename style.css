@@ -12,12 +12,13 @@
    padding: 10px;
    margin-top: 50px;
    border:solid 1px grey;
+   margin-bottom: 10px;
     
 }
 
 #resultdisplay{
     background-color:#FAFAFA;
-    border:solid 1px grey;
+    
 }
  #choices{ 
     padding: 5px;
@@ -27,3 +28,9 @@
    width: 177px;
    height: auto;
 } 
+#screen{
+    border: solid 1px grey;
+}
+.display-12{
+    text-align: center;
+}

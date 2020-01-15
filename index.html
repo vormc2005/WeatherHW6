@@ -15,26 +15,26 @@
 <body>
 
     <div class="jumbotron jumbotron-fluid">
-        <div class="container">
+      
             <h1 class="display-12">Weather Dashboard</h1>
-        </div>
-      </div>
+        
+    </div>
+        <div class="container" id="screen">
+
+        <div class = "container buttonsgroup">
 
 
-    <div class = "container buttonsgroup">
-
-
-    <div class="row" id="cities">
+        <div class="row" id="cities">
         
         <div class="col-4 searchcolumn">
      <!-- search input box -->
-            <Div class="inputarea" id="search">
-             <input type="text" id = "city-input" placeholder="Type city">
+  <Div class="inputarea" id="search">
+         <input type="text" id = "city-input" placeholder="Type city">
 
     <!-- search button -->
-                <input type="submit" class="searchadd" id="searchbtn" Value="Search">
+         <input type="submit" class="searchadd" id="searchbtn" Value="Search">
                 
-            </Div>
+ </Div>
     <!-- this is the place where previous search gets saved -->
             <div class="savedcities" id="save-btns"> </div>
 
@@ -47,11 +47,16 @@
     
     <div id="Weatherreport"></div>
 
-<div class="container">
-    <div class="forecast">forecast</div>
-</div>
+
         <!-- end of weather result screen -->
     </div>
+    <div class=" col-12 container">
+        <div class="forecast">
+        
+    </div>
+    </div>
+
+</div>
     </div>
     <!-- ======================================================= -->
 
@@ -64,6 +69,7 @@
 
       // here, we are creating buttons
         
+
         var weatherScreen =$("div#Weatherreport");
         var savebtnsDiv = $("div#save-btns");
         var citiesarr = ["Washington DC", "New York", "Boston"]
@@ -80,54 +86,109 @@
         })
         
         }  
-
+// display Weather report========================//
         var displayWeather = function(weatherObj) {
+            var cityName = weatherObj.name
+            var img1 = weatherObj.weather[0].description;
+            var description = weatherObj.weather[0].description;
             var date = weatherObj.dt;
-            var img1 = weatherObj.weather.icon;
             var temp = weatherObj.main.temp;
             var humidity = weatherObj.main.humidity
             var weatherDiv = $("<div>");
 
+            var h1 = $("<h1>");
+            h1.text(cityName);    
             var h3 = $("<h3>");
             var img =$("<img>");
-            img.attr("src", img1);
+            img.attr("src", "http://openweathermap.org/img/wn/"+ weatherObj.weather[0].icon + ".png");
             h3.text(date);
+            var p0 = $("<p>");
+            p0.text(description)
             var p1 = $("<p>");
-            p1.text("Temperature:" + temp);
+            p1.text("Temperature: " + temp+" F");
             var p2 = $("<p>");
-            p2.text("Humidity: " +humidity);
-
+            p2.text("Humidity: " +humidity+ " %");
+                
+            weatherDiv.append(h1) ;   
             weatherDiv.append(h3);
-            weatherDiv.append(img)
+            weatherDiv.append(img);
+            weatherDiv.append(p0);
             weatherDiv.append(p1);
             weatherDiv.append(p2);
             weatherScreen.prepend(weatherDiv);
             
-
         }
 
 
 
+       
 
-// =======================ajax not working yet
+// weather look up function///////////
 
 var weatherLookUp = function(city){
-            var queryURL ="http://api.openweathermap.org/data/2.5/weather/";
-        $.ajax({
-          url: queryURL,
-          method: "GET",
-          data:{
-            q: city,
-            APPID: "9d9098e8b8edb39b819bbf8955b080a6" 
-          }
+       
+         var queryURL ="http://api.openweathermap.org/data/2.5/weather/";
+            $.ajax({
+            url: queryURL,
+            method: "GET",
+            data:{
+                q: city,
+                APPID: "9d9098e8b8edb39b819bbf8955b080a6",
+                units: "imperial" 
+                
+            }
         }).then(function(response) {
             console.log(response)
+            console.log(response.weather[0].description)
         //   $("#Weatherreport").text(JSON.stringify(response));
           displayWeather(response);
-          
+            
         });
       }
-      
+ // Function that returns five day forcast//   
+      var fiveDays = function(city){
+          var country = "US";
+    var urlFive = "http://api.openweathermap.org/data/2.5/forecast/" ;
+
+    $.ajax({
+        url: urlFive,
+        method: "GET",
+        data:{
+        q: city, country, 
+        cnt: "5",
+        APPID: "dd99e52f143f4e6c11a4199ea7714402",
+        units: "imperial"
+
+        }
+    }).then(function(response){
+        console.log(response)
+        console.log(response.list[0].weather[0].main)
+
+    });
+}
+
+
+// // render 5 days weather report=====///////
+    var forecastinfo = function(listObj){
+var forcastDiv = $(".forcast")
+        // // // day1//
+        
+        // var date0 = listObj.list[0].date_txt;
+        var temp0 = listObj.list[0].main[0].temp;
+        var description0 = response.list[0].weather[0].main;
+
+        var datef0 = $("<p>");
+        datef0.text(date0);
+        var imgf0= $("<img>");
+        imgf0.attr("src", "http://openweathermap.org/img/wn" + list[0].weather[0].icon +".png")
+        var tempf0 = $("<p>")
+        tempf0.text(temp0);
+        var forcastDiv = $("<div>");  
+
+        forcastDiv.append(datef0);    
+        forcastDiv.append(imgf0);
+        forcastDiv.append(tempf0);
+    };
 // =========================================
 // Search Button=================================
         $("#searchbtn").on("click", function(event){
@@ -136,10 +197,14 @@ var weatherLookUp = function(city){
             citiesarr.push(city);
             renderLast();   
             weatherLookUp(city);
+            fiveDays(city);
+            forecastinfo(city);
         });
 
         renderLast();
 });
+
+
 
 </script>
 </body>
