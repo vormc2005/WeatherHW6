@@ -1,211 +1,312 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
 
     <title>Document</title>
 </head>
+
 <body>
 
     <div class="jumbotron jumbotron-fluid">
-      
-            <h1 class="display-12">Weather Dashboard</h1>
-        
+
+        <h1 class="display-12">Weather Dashboard</h1>
+
     </div>
-        <div class="container" id="screen">
+    <div class="container" id="screen">>
+        <div class="container buttonsgroup">
+            <div class="row" id="cities">
+                <div class="col-4 searchcolumn">
+                    <!-- search input box -->
+                    <Div class="inputarea" id="search">
+                        <input type="text" id="city-input" placeholder="Type city">
 
-        <div class = "container buttonsgroup">
+                        <!-- search button -->
+                        <input type="submit" class="searchadd" id="searchbtn" Value="Search">
+
+                    </Div>
+                    <!-- this is the place where previous search gets saved -->
+                    <div class="savedcities" id="save-btns"> </div>
+
+                </div>
+
+                <!-- Weather results--------------------------------------------- -->
+                <!--==================================  -->
+
+                <div class="col-8" id="resultdisplay">
+
+                    <div id="Weatherreport"></div>
 
 
-        <div class="row" id="cities">
-        
-        <div class="col-4 searchcolumn">
-     <!-- search input box -->
-  <Div class="inputarea" id="search">
-         <input type="text" id = "city-input" placeholder="Type city">
+                    <!-- end of weather result screen -->
+                </div>
+                <div class=" col-12 container">
+                    <div class="row">
+                        <div class="col - 2 forecast" id="day1"></div>
+                        <div class="col - 2 forecast" id="day2"></div>
+                        <div class="col - 2 forecast" id="day3"></div>
+                        <div class="col - 2 forecast" id="day4"></div>
+                        <div class="col - 2 forecast" id="day5"></div>
+                    </div>
+                </div>
 
-    <!-- search button -->
-         <input type="submit" class="searchadd" id="searchbtn" Value="Search">
-                
- </Div>
-    <!-- this is the place where previous search gets saved -->
-            <div class="savedcities" id="save-btns"> </div>
-
+            </div>
         </div>
+        <!-- ======================================================= -->
 
-<!-- Weather results--------------------------------------------- -->
-        <!--==================================  -->
+        <!-- Getting API======================== -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript">
 
-<div class="col-8" id="resultdisplay">
-    
-    <div id="Weatherreport"></div>
+            $(document).ready(function () {
 
+                // here, we are creating buttons
 
-        <!-- end of weather result screen -->
-    </div>
-    <div class=" col-12 container">
-        <div class="forecast">
-        
-    </div>
-    </div>
+                var forcastDiv = $(".forcast")
+                var weatherScreen = $("div#Weatherreport");
+                var savebtnsDiv = $("div#save-btns");
+                var citiesarr = ["Washington DC", "New York", "Boston"]
 
-</div>
-    </div>
-    <!-- ======================================================= -->
+                var renderLast = function () {
+                    savebtnsDiv.html("");
+                    $.each(citiesarr, function (idx, city) {
+                        var btn = $("<button>");
+                        btn.text(city);
+                        btn.attr("id", "choices")
+                        btn.addClass("nav-link hit-api");
+                        savebtnsDiv.append(btn);
 
-<!-- Getting API======================== -->
+                    })
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript">
+                }
+                // display Weather report========================//
+                var displayWeather = function (weatherObj) {
+                    var cityName = weatherObj.name
+                    var img1 = weatherObj.weather[0].description;
+                    var description = weatherObj.weather[0].description;
+                    var date = weatherObj.dt;
+                    var dateFixed = moment.unix(date).format('MMMM Do YYYY, h:mm:ss a');
+                    var temp = weatherObj.main.temp;
+                    var humidity = weatherObj.main.humidity
+                    var weatherDiv = $("<div>");
 
-    $(document).ready(function(){
+                    var h1 = $("<h1>");
+                    h1.text(cityName);
+                    var h3 = $("<h3>");
+                    var img = $("<img>");
+                    img.attr("src", "http://openweathermap.org/img/wn/" + weatherObj.weather[0].icon + ".png");
+                    h3.text(dateFixed);
+                    var p0 = $("<p>");
+                    p0.text(description)
+                    var p1 = $("<p>");
+                    p1.text("Temperature: " + temp + " F");
+                    var p2 = $("<p>");
+                    p2.text("Humidity: " + humidity + " %");
 
-      // here, we are creating buttons
-        
+                    weatherDiv.append(h1);
+                    weatherDiv.append(h3);
+                    weatherDiv.append(img);
+                    weatherDiv.append(p0);
+                    weatherDiv.append(p1);
+                    weatherDiv.append(p2);
+                    weatherScreen.prepend(weatherDiv);
 
-        var weatherScreen =$("div#Weatherreport");
-        var savebtnsDiv = $("div#save-btns");
-        var citiesarr = ["Washington DC", "New York", "Boston"]
-
-        var renderLast = function(){
-        savebtnsDiv.html("");
-        $.each(citiesarr, function(idx, city){
-            var btn = $("<button>");
-            btn.text(city);
-            btn.attr("id", "choices")
-            btn.addClass("nav-link")
-            savebtnsDiv.append(btn);
-           
-        })
-        
-        }  
-// display Weather report========================//
-        var displayWeather = function(weatherObj) {
-            var cityName = weatherObj.name
-            var img1 = weatherObj.weather[0].description;
-            var description = weatherObj.weather[0].description;
-            var date = weatherObj.dt;
-            var temp = weatherObj.main.temp;
-            var humidity = weatherObj.main.humidity
-            var weatherDiv = $("<div>");
-
-            var h1 = $("<h1>");
-            h1.text(cityName);    
-            var h3 = $("<h3>");
-            var img =$("<img>");
-            img.attr("src", "http://openweathermap.org/img/wn/"+ weatherObj.weather[0].icon + ".png");
-            h3.text(date);
-            var p0 = $("<p>");
-            p0.text(description)
-            var p1 = $("<p>");
-            p1.text("Temperature: " + temp+" F");
-            var p2 = $("<p>");
-            p2.text("Humidity: " +humidity+ " %");
-                
-            weatherDiv.append(h1) ;   
-            weatherDiv.append(h3);
-            weatherDiv.append(img);
-            weatherDiv.append(p0);
-            weatherDiv.append(p1);
-            weatherDiv.append(p2);
-            weatherScreen.prepend(weatherDiv);
-            
-        }
+                }
 
 
 
-       
-
-// weather look up function///////////
-
-var weatherLookUp = function(city){
-       
-         var queryURL ="http://api.openweathermap.org/data/2.5/weather/";
-            $.ajax({
-            url: queryURL,
-            method: "GET",
-            data:{
-                q: city,
-                APPID: "9d9098e8b8edb39b819bbf8955b080a6",
-                units: "imperial" 
-                
-            }
-        }).then(function(response) {
-            console.log(response)
-            console.log(response.weather[0].description)
-        //   $("#Weatherreport").text(JSON.stringify(response));
-          displayWeather(response);
-            
-        });
-      }
- // Function that returns five day forcast//   
-      var fiveDays = function(city){
-          var country = "US";
-    var urlFive = "http://api.openweathermap.org/data/2.5/forecast/" ;
-
-    $.ajax({
-        url: urlFive,
-        method: "GET",
-        data:{
-        q: city, country, 
-        cnt: "5",
-        APPID: "dd99e52f143f4e6c11a4199ea7714402",
-        units: "imperial"
-
-        }
-    }).then(function(response){
-        console.log(response)
-        console.log(response.list[0].weather[0].main)
-
-    });
-}
 
 
-// // render 5 days weather report=====///////
-    var forecastinfo = function(listObj){
-var forcastDiv = $(".forcast")
-        // // // day1//
-        
-        // var date0 = listObj.list[0].date_txt;
-        var temp0 = listObj.list[0].main[0].temp;
-        var description0 = response.list[0].weather[0].main;
+                // weather look up function///////////
 
-        var datef0 = $("<p>");
-        datef0.text(date0);
-        var imgf0= $("<img>");
-        imgf0.attr("src", "http://openweathermap.org/img/wn" + list[0].weather[0].icon +".png")
-        var tempf0 = $("<p>")
-        tempf0.text(temp0);
-        var forcastDiv = $("<div>");  
+                var weatherLookUp = function (city) {
 
-        forcastDiv.append(datef0);    
-        forcastDiv.append(imgf0);
-        forcastDiv.append(tempf0);
-    };
-// =========================================
-// Search Button=================================
-        $("#searchbtn").on("click", function(event){
-            event.preventDefault();
-            var city = $("#city-input").val();
-            citiesarr.push(city);
-            renderLast();   
-            weatherLookUp(city);
-            fiveDays(city);
-            forecastinfo(city);
-        });
+                    var queryURL = "http://api.openweathermap.org/data/2.5/weather/";
+                    $.ajax({
+                        url: queryURL,
+                        method: "GET",
+                        data: {
+                            q: city,
+                            APPID: "9d9098e8b8edb39b819bbf8955b080a6",
+                            units: "imperial"
 
-        renderLast();
-});
+                        }
+                    }).then(function (response) {
+                        console.log(response)
+                        console.log(response.weather[0].description)
+                        //   $("#Weatherreport").text(JSON.stringify(response));
+                        displayWeather(response);
+
+                    });
+                }
+                // Function that returns five day forcast//   
+                var fiveDays = function (city) {
+                    var country = "US";
+                    var urlFive = "http://api.openweathermap.org/data/2.5/forecast/";
+
+                    $.ajax({
+                        url: urlFive,
+                        method: "GET",
+                        data: {
+                            q: city, country,
+                            cnt: "40",
+                            APPID: "dd99e52f143f4e6c11a4199ea7714402",
+                            units: "imperial"
+
+                        }
+                    }).then(function (response) {
+                        console.log(response)
+                        console.log(response.list[0].weather[0].main)
+
+                        // create 1st day forcast
+
+
+                        var date0 = response.list[2].dt_txt;
+                        var dayf0 = $("<p>")
+                        dayf0.text(date0);
+                        $("#day1").append(dayf0);
+
+                        var icon0 = response.list[2].weather[0].icon;
+                        var imgf0 = $("<img>");
+                        imgf0.attr("src", "http://openweathermap.org/img/wn/" + icon0 + ".png");
+                        $("#day1").append(imgf0);
+
+                        var description0 = response.list[2].weather[0].main;
+                        var descr0 = $("<p>");
+                        descr0.text(description0);
+                        $("#day1").append(descr0);
+
+                        var temp0 = response.list[2].main.temp;
+                        var tempf0 = $("<p>");
+                        tempf0.text(temp0 + "F");
+                        $("#day1").append(tempf0)
+                        // day2 forcast===================================///////////////////
+                        var date1 = response.list[10].dt_txt;
+                        var dayf1 = $("<p>")
+                        dayf1.text(date1);
+                        $("#day2").append(dayf1);
+
+                        var iconf1 = response.list[10].weather[0].icon;
+                        var imgf1 = $("<img>");
+                        imgf1.attr("src", "http://openweathermap.org/img/wn/" + iconf1 + ".png");
+                        $("#day2").append(imgf1);
+
+                        var description1 = response.list[10].weather[0].main;
+                        var descr1 = $("<p>");
+                        descr1.text(description1);
+                        $("#day2").append(descr1);
+
+                        var temp1 = response.list[10].main.temp;
+                        var tempf1 = $("<p>");
+                        tempf1.text(temp1 + "F");
+                        $("#day2").append(tempf1);
+
+                        // day 3 forecast=======================///////////
+                        var date2 = response.list[18].dt_txt;
+                        var dayf2 = $("<p>")
+                        dayf2.text(date2);
+                        $("#day3").append(dayf2);
+
+                        var iconf2 = response.list[18].weather[0].icon;
+                        var imgf2 = $("<img>");
+                        imgf2.attr("src", "http://openweathermap.org/img/wn/" + iconf2 + ".png");
+                        $("#day3").append(imgf2);
+
+                        var description2 = response.list[18].weather[0].main;
+                        var descr2 = $("<p>");
+                        descr2.text(description2);
+                        $("#day3").append(descr2);
+
+                        var temp2 = response.list[18].main.temp;
+                        var tempf2 = $("<p>");
+                        tempf2.text(temp2 + "F");
+                        $("#day3").append(tempf2);
+
+                        // Day 4 forecast///////////////////////
+                        var date3 = response.list[26].dt_txt;
+                        var dayf3 = $("<p>")
+                        dayf3.text(date3);
+                        $("#day4").append(dayf3);
+
+                        var iconf3 = response.list[26].weather[0].icon;
+                        var imgf3 = $("<img>");
+                        imgf3.attr("src", "http://openweathermap.org/img/wn/" + iconf3 + ".png");
+                        $("#day4").append(imgf3);
+
+                        var description3 = response.list[26].weather[0].main;
+                        var descr3 = $("<p>");
+                        descr3.text(description3);
+                        $("#day4").append(descr3);
+
+                        var temp3 = response.list[26].main.temp;
+                        var tempf3 = $("<p>");
+                        tempf3.text(temp3 + "F");
+                        $("#day4").append(tempf3);
+
+                        // Day 5 Forcast=======================///////////
+
+                        var date4 = response.list[34].dt_txt;
+                        var dayf4 = $("<p>")
+                        dayf4.text(date3);
+                        $("#day5").append(dayf4);
+
+                        var iconf4 = response.list[34].weather[0].icon;
+                        var imgf4 = $("<img>");
+                        imgf4.attr("src", "http://openweathermap.org/img/wn/" + iconf4 + ".png");
+                        $("#day5").append(imgf4);
+
+                        var description4 = response.list[34].weather[0].main;
+                        var descr4 = $("<p>");
+                        descr4.text(description4);
+                        $("#day5").append(descr4);
+
+                        var temp4 = response.list[34].main.temp;
+                        var tempf4 = $("<p>");
+                        tempf4.text(temp4 + "F");
+                        $("#day5").append(tempf4);
+
+
+                    });
+                }
+
+
+             
+                // Search Button=================================
+                $("#searchbtn").on("click", function (event) {
+                    event.preventDefault();
+                    var city = $("#city-input").val();
+                    citiesarr.push(city);
+                    renderLast();
+                    weatherLookUp(city);
+                    fiveDays(city);
+                    // forecastinfo(city);
+                });
+
+                $("#save-btns").on("click", "button.hit-api", function (e) {
+                    e.preventDefault();
+                    var cityName = $(this).text();
+                    weatherLookUp();
+                    fiveDays();
+                })
+
+
+                renderLast();
+            });
 
 
 
-</script>
+
+        </script>
 </body>
+
 </html>

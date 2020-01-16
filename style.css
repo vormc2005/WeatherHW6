@@ -7,17 +7,18 @@
 
 .forecast {
 
-    background-color:#F1F1F1;
-    height: 150px;
+    background-color:#45A0E5 ;
+    height: auto;
    padding: 10px;
    margin-top: 50px;
    border:solid 1px grey;
    margin-bottom: 10px;
-    
+    text-align: center;
 }
 
 #resultdisplay{
-    background-color:#FAFAFA;
+    background-color:#86C7F8 ;
+    text-align: center;
     
 }
  #choices{ 
@@ -30,7 +31,9 @@
 } 
 #screen{
     border: solid 1px grey;
+    height:auto;
 }
 .display-12{
     text-align: center;
 }
+ 
