@@ -22,7 +22,7 @@
         <h1 class="display-12">Weather Dashboard</h1>
 
     </div>
-    <div class="container" id="screen">>
+    <div class="container" id="screen">
         <div class="container buttonsgroup">
             <div class="row" id="cities">
                 <div class="col-4 searchcolumn">
@@ -87,6 +87,10 @@
                         savebtnsDiv.append(btn);
 
                     })
+
+                 $("#choices").on("click", function(){
+                     
+                 })   
 
                 }
                 // display Weather report========================//
@@ -168,7 +172,7 @@
                         console.log(response)
                         console.log(response.list[0].weather[0].main)
 
-                        // create 1st day forcast
+        // create 1st day forcast===========================////////////////////////
 
 
                         var date0 = response.list[2].dt_txt;
@@ -190,7 +194,7 @@
                         var tempf0 = $("<p>");
                         tempf0.text(temp0 + "F");
                         $("#day1").append(tempf0)
-                        // day2 forcast===================================///////////////////
+     // day2 forcast===================================///////////////////
                         var date1 = response.list[10].dt_txt;
                         var dayf1 = $("<p>")
                         dayf1.text(date1);
@@ -211,7 +215,7 @@
                         tempf1.text(temp1 + "F");
                         $("#day2").append(tempf1);
 
-                        // day 3 forecast=======================///////////
+        // day 3 forecast=======================///////////
                         var date2 = response.list[18].dt_txt;
                         var dayf2 = $("<p>")
                         dayf2.text(date2);
@@ -232,7 +236,7 @@
                         tempf2.text(temp2 + "F");
                         $("#day3").append(tempf2);
 
-                        // Day 4 forecast///////////////////////
+ // Day 4 forecast====================================///////////////////////
                         var date3 = response.list[26].dt_txt;
                         var dayf3 = $("<p>")
                         dayf3.text(date3);
@@ -253,7 +257,7 @@
                         tempf3.text(temp3 + "F");
                         $("#day4").append(tempf3);
 
-                        // Day 5 Forcast=======================///////////
+     // Day 5 Forcast=======================////////////////////////
 
                         var date4 = response.list[34].dt_txt;
                         var dayf4 = $("<p>")
@@ -289,14 +293,25 @@
                     renderLast();
                     weatherLookUp(city);
                     fiveDays(city);
-                    // forecastinfo(city);
+                    localStorage.setItem("city", JSON.stringify(city))
                 });
+// Saving function===========Does not work yet=============///////////////
+                // var saveItem = function(city){
+                //     var city=$("#city-input").val();
+                //     localStorage.setItem("city", JSON.stringify(city))
+                // };
+                // console.log(saveItem)
+// =========================Need to get input from a button==================////
 
-                $("#save-btns").on("click", "button.hit-api", function (e) {
+                $("div#save-btns").on("click", "button.hit-api", function (e) {
                     e.preventDefault();
-                    var cityName = $(this).text();
+                    var cityName = $("#choices").text();
+                    console.log(cityName)
+                    // cityName.text(citiesarr[i]);
+                    $("#city-input").text(cityName)
                     weatherLookUp();
                     fiveDays();
+                    
                 })
 
 
