@@ -70,15 +70,32 @@
 
             $(document).ready(function () {
 
-                // here, we are creating buttons
+                // Global variables
 
                 var forcastDiv = $(".forcast")
                 var weatherScreen = $("div#Weatherreport");
                 var savebtnsDiv = $("div#save-btns");
                 var citiesarr = ["Washington DC", "New York", "Boston"]
 
+
+                //End of global variables
+
+
+
+
+
+
+
+
+                //Rendering forecast function               
                 var renderLast = function () {
+
                     savebtnsDiv.html("");
+                    $(".forecast").html("");
+                    weatherScreen.html("")
+                    //End of rendering forcast  
+
+                    //creating buttons for cities
                     $.each(citiesarr, function (idx, city) {
                         var btn = $("<button>");
                         btn.text(city);
@@ -88,9 +105,8 @@
 
                     })
 
-                 $("#choices").on("click", function(){
-                     
-                 })   
+                    
+
 
                 }
                 // display Weather report========================//
@@ -127,11 +143,7 @@
 
                 }
 
-
-
-
-
-                // weather look up function///////////
+                // weather look up function API///////////
 
                 var weatherLookUp = function (city) {
 
@@ -153,7 +165,7 @@
 
                     });
                 }
-                // Function that returns five day forcast//   
+                // Function that returns five day forcast API//   
                 var fiveDays = function (city) {
                     var country = "US";
                     var urlFive = "http://api.openweathermap.org/data/2.5/forecast/";
@@ -172,7 +184,7 @@
                         console.log(response)
                         console.log(response.list[0].weather[0].main)
 
-        // create 1st day forcast===========================////////////////////////
+                        // create 1st day forcast===========================////////////////////////
 
 
                         var date0 = response.list[2].dt_txt;
@@ -194,7 +206,7 @@
                         var tempf0 = $("<p>");
                         tempf0.text(temp0 + "F");
                         $("#day1").append(tempf0)
-     // day2 forcast===================================///////////////////
+                        // day2 forcast===================================///////////////////
                         var date1 = response.list[10].dt_txt;
                         var dayf1 = $("<p>")
                         dayf1.text(date1);
@@ -215,7 +227,7 @@
                         tempf1.text(temp1 + "F");
                         $("#day2").append(tempf1);
 
-        // day 3 forecast=======================///////////
+                        // day 3 forecast=======================///////////
                         var date2 = response.list[18].dt_txt;
                         var dayf2 = $("<p>")
                         dayf2.text(date2);
@@ -236,7 +248,7 @@
                         tempf2.text(temp2 + "F");
                         $("#day3").append(tempf2);
 
- // Day 4 forecast====================================///////////////////////
+                        // Day 4 forecast====================================///////////////////////
                         var date3 = response.list[26].dt_txt;
                         var dayf3 = $("<p>")
                         dayf3.text(date3);
@@ -257,7 +269,7 @@
                         tempf3.text(temp3 + "F");
                         $("#day4").append(tempf3);
 
-     // Day 5 Forcast=======================////////////////////////
+                        // Day 5 Forcast=======================////////////////////////
 
                         var date4 = response.list[34].dt_txt;
                         var dayf4 = $("<p>")
@@ -284,39 +296,62 @@
                 }
 
 
-             
+
                 // Search Button=================================
+
                 $("#searchbtn").on("click", function (event) {
                     event.preventDefault();
                     var city = $("#city-input").val();
-                    citiesarr.push(city);
-                    renderLast();
-                    weatherLookUp(city);
-                    fiveDays(city);
-                    localStorage.setItem("city", JSON.stringify(city))
+                    if (city === "") {
+                        alert("Please type city name");
+                        return;
+                    } else {
+                        citiesarr.push(city);
+                        renderLast();
+                        weatherLookUp(city);
+                        fiveDays(city);
+
+
+
+                        localStorage.setItem("cityName", JSON.stringify(city))
+                        console.log(localStorage)
+
+                    }
                 });
-// Saving function===========Does not work yet=============///////////////
-                // var saveItem = function(city){
-                //     var city=$("#city-input").val();
-                //     localStorage.setItem("city", JSON.stringify(city))
-                // };
-                // console.log(saveItem)
-// =========================Need to get input from a button==================////
 
-                $("div#save-btns").on("click", "button.hit-api", function (e) {
-                    e.preventDefault();
-                    var cityName = $("#choices").text();
-                    console.log(cityName)
-                    // cityName.text(citiesarr[i]);
-                    $("#city-input").text(cityName)
-                    weatherLookUp();
-                    fiveDays();
+                //Pulling stored items
+                //Does not recognise this function
+                var pullStored = function () {
+                    var storedCity = JSON.parse(localStorage.getItem("cityName"));
+                    citiesarr.push(storedCity);
                     
-                })
+                    // Initial city at load
+          
+               }
+                              
+               pullStored();
+                console.log(pullStored)
+                console.log(localStorage)
+                    
+                    // =========================Need to get input from a button==================////Need to ask, stuck here!!!!!!!!!!!
+
+                    $("div#save-btns").on("click", "button.hit-api", function (e) {
+                        e.preventDefault();
+                        // innerHtml = " ";
+
+                        var cityName = $("button#choices").text();
+                        console.log(cityName)
+                        $("div#city-input").text(cityName)
+
+                        weatherLookUp();
+                        fiveDays();
+
+                    })
+
+                    renderLast();
 
 
-                renderLast();
-            });
+                });
 
 
 
