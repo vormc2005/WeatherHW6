@@ -79,27 +79,30 @@
 
 
                 //End of global variables
+                var onStart =()=>{
+                    
+                weatherLookUp("Arlington");
+                fiveDays("Arlington");
 
-
-
-
+                }
 
 
 
 
                 //Rendering forecast function               
                 var renderLast = function () {
-
+                    onStart("Arlington")
                     savebtnsDiv.html("");
                     $(".forecast").html("");
                     weatherScreen.html("")
+                   
                     //End of rendering forcast  
 
                     //creating buttons for cities
                     $.each(citiesarr, function (idx, city) {
                         var btn = $("<button>");
                         btn.text(city);
-                        btn.attr("id", "choices")
+                        btn.attr("id", "choices-" + idx)
                         btn.addClass("nav-link hit-api");
                         savebtnsDiv.append(btn);
 
@@ -291,7 +294,7 @@
                         tempf4.text(temp4 + "F");
                         $("#day5").append(tempf4);
 
-
+                            
                     });
                 }
 
@@ -301,11 +304,15 @@
 
                 $("#searchbtn").on("click", function (event) {
                     event.preventDefault();
+                   
                     var city = $("#city-input").val();
                     if (city === "") {
                         alert("Please type city name");
                         return;
                     } else {
+                        savebtnsDiv.html("");
+                    $(".forecast").html("");
+                    weatherScreen.html("")
                         citiesarr.push(city);
                         renderLast();
                         weatherLookUp(city);
@@ -337,12 +344,14 @@
                         e.preventDefault();
                         // innerHtml = " ";
 
-                        var cityName = $("button#choices").text();
+                        var cityName = $(this).text();
                         console.log(cityName)
                         $("div#city-input").text(cityName)
 
-                        weatherLookUp();
-                        fiveDays();
+                        $(".forecast").html("");
+                    weatherScreen.html("")
+                        weatherLookUp(cityName);
+                        fiveDays(cityName);
 
                     })
 
