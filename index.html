@@ -49,6 +49,8 @@
 
                     <!-- end of weather result screen -->
                 </div>
+
+                <!--  -->
                 <div class=" col-12 container">
                     <div class="row">
                         <div class="col - 2 forecast" id="day1"></div>
@@ -304,6 +306,8 @@
 
                 $("#searchbtn").on("click", function (event) {
                     event.preventDefault();
+                    $(".forecast").empty();
+                    weatherScreen.html("")
                    
                     var city = $("#city-input").val();
                     if (city === "") {
