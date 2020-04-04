@@ -14,11 +14,24 @@
    border:solid 1px grey;
    margin-bottom: 10px;
     text-align: center;
-}
+    border:solid black 1px;
+    border-radius: 5px;
 
+}
+#cities{
+    margin-top: 5px;
+}
 #resultdisplay{
-    background-color:#86C7F8 ;
+    
+    background-color:rgb(96, 157, 206);
     text-align: center;
+    position: relative;
+    float:right;
+    width:100%;
+    padding: 3px;
+    border:solid black 1px;
+    border-radius: 5px;
+
     
 }
  #choices{ 
@@ -26,7 +39,7 @@
     border: solid 1px grey;
     margin-bottom: 5px;
     margin-top: 5px;
-   width: 177px;
+   width: 150px;
    height: auto;
 } 
 #screen{
@@ -47,6 +60,3 @@ div#hourlyId{
 p#hourlyP{
     padding: 5px;
 }
- #choices-{
-     background-color: chartreuse;
- }

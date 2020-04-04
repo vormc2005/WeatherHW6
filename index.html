@@ -23,33 +23,40 @@
 
     </div>
     <div class="container" id="screen">
-        <div class="container buttonsgroup">
+        <!-- <div class="container buttonsgroup"> -->
+
+            <div class="container-fluid">
+                
             <div class="row" id="cities">
+                
                 <div class="col-4 searchcolumn">
                     <!-- search input box -->
-                    <Div class="inputarea" id="search">
+                    <div class="inputarea" id="search">
                         <input type="text" id="city-input" placeholder="Type city">
 
                         <!-- search button -->
                         <input type="submit" class="searchadd" id="searchbtn" Value="Search">
 
-                    </Div>
+                    </div>
                     <!-- this is the place where previous search gets saved -->
                     <div class="savedcities" id="save-btns"> </div>
 
+                    
                 </div>
 
                 <!-- Weather results--------------------------------------------- -->
                 <!--==================================  -->
 
-                <div class="col-8" id="resultdisplay">
+                <div class=" col-sm-12 col-md-8 " id="resultdisplay">
 
-                    <div id="Weatherreport"></div>
+                    <div id="Weatherreport">
 
+                    </div>
+                </div>
 
                     <!-- end of weather result screen -->
                 </div>
-
+            </div>
                 <!--  -->
                 <div class=" col-12 container">
                     <div class="row">
@@ -67,7 +74,7 @@
                         
                     </ul> -->
                 <!-- </div> --> 
-                </div>
+                
                 <div class="col-12 conatainer" id="hourly">
                     <div class ="row" id="hourlyDiv"></div>
                     <!-- <ul  class="inline-block" id="hourlyForcast">
@@ -76,7 +83,7 @@
                 </div>
                     
 
-            </div>
+            <!-- </div> -->
         </div>
         <!-- ======================================================= -->
 
