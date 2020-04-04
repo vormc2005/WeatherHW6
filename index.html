@@ -112,7 +112,8 @@
                     onStart("")
                     savebtnsDiv.html("");
                     $(".forecast").html("");
-                    weatherScreen.html("")
+                    weatherScreen.html("");
+                   
                    
                     //End of rendering forcast  
 
@@ -391,8 +392,11 @@
 
                 $("#searchbtn").on("click", function (event) {
                     event.preventDefault();
+                    event.stopImmediatePropagation();
+                    hourlyForecast.html("");
                     $(".forecast").empty();
                     weatherScreen.html("")
+                   
                    
                     var city = $("#city-input").val();
                     if (city === "") {
@@ -400,7 +404,7 @@
                         return;
                     } else {
                       
-                      
+                        hourlyForecast.html("");  
                     $(".forecast").html("");
                     weatherScreen.html("")
                     citiesarr.push(city);
@@ -431,14 +435,16 @@
                    
                     $("div#save-btns").on("click", "button.hit-api", function (e) {
                         e.preventDefault();
+                        e.stopImmediatePropagation();
                         // innerHtml = " ";
 
                         var cityName = $(this).text();
                         console.log(cityName)
                         $("div#city-input").text(cityName)
-
+                       
                         $(".forecast").html("");
-                    weatherScreen.html("")
+                        weatherScreen.html("");
+                        hourlyForecast.html("");
                         weatherLookUp(cityName);
                         fiveDays(cityName);
 
