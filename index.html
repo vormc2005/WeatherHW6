@@ -61,6 +61,21 @@
                     </div>
                 </div>
 
+                <!-- <div class="col-12 conatainer" id="hourly">
+                    <div class ="row" id="hourlyDiv"></div>
+                    <!-- <ul  class="inline-block" id="hourlyForcast">
+                        
+                    </ul> -->
+                <!-- </div> --> 
+                </div>
+                <div class="col-12 conatainer" id="hourly">
+                    <div class ="row" id="hourlyDiv"></div>
+                    <!-- <ul  class="inline-block" id="hourlyForcast">
+                        
+                    </ul> -->
+                </div>
+                    
+
             </div>
         </div>
         <!-- ======================================================= -->
@@ -78,13 +93,14 @@
                 var weatherScreen = $("div#Weatherreport");
                 var savebtnsDiv = $("div#save-btns");
                 var citiesarr = ["Washington DC", "New York", "Boston"]
+                var hourlyForecast = $("div#hourlyDiv");
 
 
                 //End of global variables
                 var onStart =()=>{
                     
-                weatherLookUp("Arlington");
-                fiveDays("Arlington");
+                weatherLookUp("Ashburn");
+                fiveDays("Ashburn");
 
                 }
 
@@ -93,7 +109,7 @@
 
                 //Rendering forecast function               
                 var renderLast = function () {
-                    onStart("Arlington")
+                    onStart("Ashburn")
                     savebtnsDiv.html("");
                     $(".forecast").html("");
                     weatherScreen.html("")
@@ -123,8 +139,13 @@
                     var dateFixed = moment.unix(date).format('MMMM Do YYYY, h:mm:ss a');
                     var temp = weatherObj.main.temp;
                     var humidity = weatherObj.main.humidity
-                    var weatherDiv = $("<div>");
+                    var highTemp = weatherObj.main.temp_max;
+                    var lowTemp = weatherObj.main.temp_min;
+                    console.log(highTemp);
+                    console.log(lowTemp)
 
+                    var weatherDiv = $("<div>");
+// Creating info lines
                     var h1 = $("<h1>");
                     h1.text(cityName);
                     var h3 = $("<h3>");
@@ -135,14 +156,20 @@
                     p0.text(description)
                     var p1 = $("<p>");
                     p1.text("Temperature: " + temp + " F");
+                    var p3 = $("<p>")
+                    p3.text("Max " + highTemp + " F")
+                    var p4 = $("<p>")
+                    p4.text("Min " + lowTemp + " F")
                     var p2 = $("<p>");
                     p2.text("Humidity: " + humidity + " %");
-
+//Appending info lines to a screen
                     weatherDiv.append(h1);
                     weatherDiv.append(h3);
                     weatherDiv.append(img);
                     weatherDiv.append(p0);
                     weatherDiv.append(p1);
+                    weatherDiv.append(p3);
+                    weatherDiv.append(p4);
                     weatherDiv.append(p2);
                     weatherScreen.prepend(weatherDiv);
 
@@ -188,114 +215,178 @@
                     }).then(function (response) {
                         console.log(response)
                         console.log(response.list[0].weather[0].main)
+                        
 
                         // create 1st day forcast===========================////////////////////////
 
 
-                        var date0 = response.list[2].dt_txt;
+                        var date0 = response.list[0].dt_txt;
                         var dayf0 = $("<p>")
                         dayf0.text(date0);
                         $("#day1").append(dayf0);
 
-                        var icon0 = response.list[2].weather[0].icon;
+                        var icon0 = response.list[0].weather[0].icon;
                         var imgf0 = $("<img>");
                         imgf0.attr("src", "http://openweathermap.org/img/wn/" + icon0 + ".png");
                         $("#day1").append(imgf0);
 
-                        var description0 = response.list[2].weather[0].main;
+                        var description0 = response.list[0].weather[0].main;
                         var descr0 = $("<p>");
                         descr0.text(description0);
                         $("#day1").append(descr0);
 
-                        var temp0 = response.list[2].main.temp;
+                        var temp0 = response.list[0].main.temp;
                         var tempf0 = $("<p>");
                         tempf0.text(temp0 + "F");
                         $("#day1").append(tempf0)
                         // day2 forcast===================================///////////////////
-                        var date1 = response.list[10].dt_txt;
+                        var date1 = response.list[8].dt_txt;
                         var dayf1 = $("<p>")
                         dayf1.text(date1);
                         $("#day2").append(dayf1);
 
-                        var iconf1 = response.list[10].weather[0].icon;
+                        var iconf1 = response.list[8].weather[0].icon;
                         var imgf1 = $("<img>");
                         imgf1.attr("src", "http://openweathermap.org/img/wn/" + iconf1 + ".png");
                         $("#day2").append(imgf1);
 
-                        var description1 = response.list[10].weather[0].main;
+                        var description1 = response.list[8].weather[0].main;
                         var descr1 = $("<p>");
                         descr1.text(description1);
                         $("#day2").append(descr1);
 
-                        var temp1 = response.list[10].main.temp;
+                        var temp1 = response.list[8].main.temp;
                         var tempf1 = $("<p>");
                         tempf1.text(temp1 + "F");
                         $("#day2").append(tempf1);
 
                         // day 3 forecast=======================///////////
-                        var date2 = response.list[18].dt_txt;
+                        var date2 = response.list[16].dt_txt;
                         var dayf2 = $("<p>")
                         dayf2.text(date2);
                         $("#day3").append(dayf2);
 
-                        var iconf2 = response.list[18].weather[0].icon;
+                        var iconf2 = response.list[16].weather[0].icon;
                         var imgf2 = $("<img>");
                         imgf2.attr("src", "http://openweathermap.org/img/wn/" + iconf2 + ".png");
                         $("#day3").append(imgf2);
 
-                        var description2 = response.list[18].weather[0].main;
+                        var description2 = response.list[16].weather[0].main;
                         var descr2 = $("<p>");
                         descr2.text(description2);
                         $("#day3").append(descr2);
 
-                        var temp2 = response.list[18].main.temp;
+                        var temp2 = response.list[16].main.temp;
                         var tempf2 = $("<p>");
                         tempf2.text(temp2 + "F");
                         $("#day3").append(tempf2);
 
                         // Day 4 forecast====================================///////////////////////
-                        var date3 = response.list[26].dt_txt;
+                        var date3 = response.list[24].dt_txt;
                         var dayf3 = $("<p>")
                         dayf3.text(date3);
                         $("#day4").append(dayf3);
 
-                        var iconf3 = response.list[26].weather[0].icon;
+                        var iconf3 = response.list[24].weather[0].icon;
                         var imgf3 = $("<img>");
                         imgf3.attr("src", "http://openweathermap.org/img/wn/" + iconf3 + ".png");
                         $("#day4").append(imgf3);
 
-                        var description3 = response.list[26].weather[0].main;
+                        var description3 = response.list[24].weather[0].main;
                         var descr3 = $("<p>");
                         descr3.text(description3);
                         $("#day4").append(descr3);
 
-                        var temp3 = response.list[26].main.temp;
+                        var temp3 = response.list[24].main.temp;
                         var tempf3 = $("<p>");
                         tempf3.text(temp3 + "F");
                         $("#day4").append(tempf3);
 
                         // Day 5 Forcast=======================////////////////////////
 
-                        var date4 = response.list[34].dt_txt;
+                        var date4 = response.list[32].dt_txt;
                         var dayf4 = $("<p>")
                         dayf4.text(date3);
                         $("#day5").append(dayf4);
 
-                        var iconf4 = response.list[34].weather[0].icon;
+                        var iconf4 = response.list[32].weather[0].icon;
                         var imgf4 = $("<img>");
                         imgf4.attr("src", "http://openweathermap.org/img/wn/" + iconf4 + ".png");
                         $("#day5").append(imgf4);
 
-                        var description4 = response.list[34].weather[0].main;
+                        var description4 = response.list[32].weather[0].main;
                         var descr4 = $("<p>");
                         descr4.text(description4);
                         $("#day5").append(descr4);
 
-                        var temp4 = response.list[34].main.temp;
+                        var temp4 = response.list[32].main.temp;
                         var tempf4 = $("<p>");
                         tempf4.text(temp4 + "F");
                         $("#day5").append(tempf4);
 
+                        // Hourly List
+                        for ( i = 0; i < response.list.length; i++){
+                            response.list.sort();
+                            
+
+                            // console.log(response.list)
+                       
+                           var hourlyUl = $("<div>")
+                           hourlyUl.addClass("row") 
+                           hourlyUl.attr("id", "hourlyId")
+                        //Responses from API
+                        var hourlyImg = response.list[i].weather[0].icon;
+                        var hourlyDescription = response.list[i].weather[0].main;
+                        var hourlyDate = response.list[i].dt_txt;
+                        var hourlyMax = response.list[i].main.temp_max;
+                        var hourlyMin = response.list[i].main.temp_min;
+                        console.log(hourlyDescription)
+                        console.log(hourlyImg)
+                        console.log(hourlyMin)
+                        console.log(hourlyMax)
+                        console.log(hourlyDate);
+
+                       
+                        var hourlyImgdom = $("<img>");
+                        hourlyImgdom.attr("src", "http://openweathermap.org/img/wn/" + hourlyImg + ".png");
+                        hourlyUl.append(hourlyImgdom)
+
+                        
+                        var hourlydecr = $("<p>");
+                        hourlydecr.attr("id", "hourlyP")
+                        hourlydecr.addClass("inline-block")
+                        hourlydecr.text(hourlyDescription);
+                        hourlyUl.append(hourlydecr);
+
+                        var hourlyDte = $("<p>"); 
+                        hourlyDte.attr("id", "hourlyP");                       
+                        hourlyDte.addClass("inline-block")
+                        hourlyDte.text(hourlyDate);
+                        hourlyUl.append(hourlyDte);
+
+                        var hourlyHigh = $("<p>");
+                        hourlyHigh.attr("id", "hourlyP")
+                        hourlyHigh.text("Max. Temperature "+ hourlyMax + " F");
+                        hourlyUl.append(hourlyHigh);
+
+                        var hourlyLow = $("<p>");
+                        hourlyLow.attr("id", "hourlyP")
+                        hourlyLow.text("Min. Temperature " + hourlyMin + " F");
+                        hourlyUl.append(hourlyLow);
+
+                        hourlyForecast.prepend(hourlyUl)
+
+                            // $("ul#hourlyForcast").append(hourlyForcast)
+
+                            // console.log(hourlyDiv)
+
+                        }
+                        // var hourlyList = $("<div>");
+                        // var hourlyDate = response.list[i].dt_txt;
+                        // console.log(hourlyDate);
+                       
+                      
+                            
                             
                     });
                 }

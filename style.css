@@ -36,4 +36,15 @@
 .display-12{
     text-align: center;
 }
+
+div#hourlyId{
+  width: 100%;
+  padding:3px;
+  border: black solid 1px;
+  margin-bottom: 2px;
+  margin-left:0.5%;
+  }
+p#hourlyP{
+    padding: 5px;
+}
  
