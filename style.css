@@ -47,4 +47,6 @@ div#hourlyId{
 p#hourlyP{
     padding: 5px;
 }
- 
+ #choices-{
+     background-color: chartreuse;
+ }

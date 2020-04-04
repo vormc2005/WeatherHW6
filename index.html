@@ -109,7 +109,7 @@
 
                 //Rendering forecast function               
                 var renderLast = function () {
-                    onStart("Ashburn")
+                    onStart("")
                     savebtnsDiv.html("");
                     $(".forecast").html("");
                     weatherScreen.html("")
@@ -122,6 +122,7 @@
                         btn.text(city);
                         btn.attr("id", "choices-" + idx)
                         btn.addClass("nav-link hit-api");
+                        btn.width("250px")
                         savebtnsDiv.append(btn);
 
                     })
@@ -376,16 +377,9 @@
 
                         hourlyForecast.prepend(hourlyUl)
 
-                            // $("ul#hourlyForcast").append(hourlyForcast)
-
-                            // console.log(hourlyDiv)
-
-                        }
-                        // var hourlyList = $("<div>");
-                        // var hourlyDate = response.list[i].dt_txt;
-                        // console.log(hourlyDate);
+    
+                       }
                        
-                      
                             
                             
                     });
@@ -405,11 +399,12 @@
                         alert("Please type city name");
                         return;
                     } else {
-                        savebtnsDiv.html("");
+                      
+                      
                     $(".forecast").html("");
                     weatherScreen.html("")
-                        citiesarr.push(city);
-                        renderLast();
+                    citiesarr.push(city);
+                        // renderLast();
                         weatherLookUp(city);
                         fiveDays(city);
 
@@ -422,7 +417,7 @@
                 });
 
                 //Pulling stored items
-                //Does not recognise this function
+                
                 var pullStored = function () {
                     var storedCity = JSON.parse(localStorage.getItem("cityName"));
                     citiesarr.push(storedCity);
@@ -433,8 +428,7 @@
                               
                pullStored();
                
-                    // =========================Need to get input from a button==================////Need to ask, stuck here!!!!!!!!!!!
-
+                   
                     $("div#save-btns").on("click", "button.hit-api", function (e) {
                         e.preventDefault();
                         // innerHtml = " ";
