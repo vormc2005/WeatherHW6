@@ -159,7 +159,7 @@
                     h1.text(cityName);
                     var h3 = $("<h3>");
                     var img = $("<img>");
-                    img.attr("src", "http://openweathermap.org/img/wn/" + weatherObj.weather[0].icon + ".png");
+                    img.attr("src", "https://openweathermap.org/img/wn/" + weatherObj.weather[0].icon + ".png");
                     h3.text(dateFixed);
                     var p0 = $("<p>");
                     p0.text(description)
@@ -188,7 +188,7 @@
 
                 var weatherLookUp = function (city) {
 
-                    var queryURL = "http://api.openweathermap.org/data/2.5/weather/";
+                    var queryURL = "https://api.openweathermap.org/data/2.5/weather/";
                     $.ajax({
                         url: queryURL,
                         method: "GET",
@@ -209,7 +209,7 @@
                 // Function that returns five day forcast API//   
                 var fiveDays = function (city) {
                     var country = "US";
-                    var urlFive = "http://api.openweathermap.org/data/2.5/forecast/";
+                    var urlFive = "https://api.openweathermap.org/data/2.5/forecast/";
 
                     $.ajax({
                         url: urlFive,
@@ -236,7 +236,7 @@
 
                         var icon0 = response.list[0].weather[0].icon;
                         var imgf0 = $("<img>");
-                        imgf0.attr("src", "http://openweathermap.org/img/wn/" + icon0 + ".png");
+                        imgf0.attr("src", "https://openweathermap.org/img/wn/" + icon0 + ".png");
                         $("#day1").append(imgf0);
 
                         var description0 = response.list[0].weather[0].main;
@@ -256,7 +256,7 @@
 
                         var iconf1 = response.list[8].weather[0].icon;
                         var imgf1 = $("<img>");
-                        imgf1.attr("src", "http://openweathermap.org/img/wn/" + iconf1 + ".png");
+                        imgf1.attr("src", "https://openweathermap.org/img/wn/" + iconf1 + ".png");
                         $("#day2").append(imgf1);
 
                         var description1 = response.list[8].weather[0].main;
@@ -277,7 +277,7 @@
 
                         var iconf2 = response.list[16].weather[0].icon;
                         var imgf2 = $("<img>");
-                        imgf2.attr("src", "http://openweathermap.org/img/wn/" + iconf2 + ".png");
+                        imgf2.attr("src", "https://openweathermap.org/img/wn/" + iconf2 + ".png");
                         $("#day3").append(imgf2);
 
                         var description2 = response.list[16].weather[0].main;
@@ -298,7 +298,7 @@
 
                         var iconf3 = response.list[24].weather[0].icon;
                         var imgf3 = $("<img>");
-                        imgf3.attr("src", "http://openweathermap.org/img/wn/" + iconf3 + ".png");
+                        imgf3.attr("src", "https://openweathermap.org/img/wn/" + iconf3 + ".png");
                         $("#day4").append(imgf3);
 
                         var description3 = response.list[24].weather[0].main;
@@ -320,7 +320,7 @@
 
                         var iconf4 = response.list[32].weather[0].icon;
                         var imgf4 = $("<img>");
-                        imgf4.attr("src", "http://openweathermap.org/img/wn/" + iconf4 + ".png");
+                        imgf4.attr("src", "https://openweathermap.org/img/wn/" + iconf4 + ".png");
                         $("#day5").append(imgf4);
 
                         var description4 = response.list[32].weather[0].main;
@@ -357,7 +357,7 @@
 
                        
                         var hourlyImgdom = $("<img>");
-                        hourlyImgdom.attr("src", "http://openweathermap.org/img/wn/" + hourlyImg + ".png");
+                        hourlyImgdom.attr("src", "https://openweathermap.org/img/wn/" + hourlyImg + ".png");
                         hourlyUl.append(hourlyImgdom)
 
                         
