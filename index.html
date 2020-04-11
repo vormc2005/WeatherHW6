@@ -224,6 +224,61 @@
                     }).then(function (response) {
                         console.log(response)
                         console.log(response.list[0].weather[0].main)
+
+                        for ( i = response.list.length-1; i >=0; i--){
+                            // response.list.reverse();
+                            
+
+                            // console.log(response.list)
+                       
+                           var hourlyUl = $("<div>")
+                           hourlyUl.addClass("row") 
+                           hourlyUl.attr("id", "hourlyId")
+                        //Responses from API
+                        var hourlyImg = response.list[i].weather[0].icon;
+                        var hourlyDescription = response.list[i].weather[0].main;
+                        var hourlyDate = response.list[i].dt_txt;
+                        var hourlyMax = response.list[i].main.temp_max;
+                        var hourlyMin = response.list[i].main.temp_min;
+                        console.log(hourlyDescription)
+                        console.log(hourlyImg)
+                        console.log(hourlyMin)
+                        console.log(hourlyMax)
+                        console.log(hourlyDate);
+
+                        var hourlyDte = $("<p>"); 
+                        hourlyDte.attr("id", "hourlyP");                       
+                        hourlyDte.addClass("inline-block")
+                        hourlyDte.text(hourlyDate);
+                        hourlyUl.append(hourlyDte);
+
+                        var hourlyImgdom = $("<img>");
+                        hourlyImgdom.attr("src", "https://openweathermap.org/img/wn/" + hourlyImg + ".png");
+                        hourlyUl.append(hourlyImgdom)
+
+                        
+                        var hourlydecr = $("<p>");
+                        hourlydecr.attr("id", "hourlyP")
+                        hourlydecr.addClass("inline-block")
+                        hourlydecr.text(hourlyDescription);
+                        hourlyUl.append(hourlydecr);
+
+                        
+
+                        var hourlyHigh = $("<p>");
+                        hourlyHigh.attr("id", "hourlyP")
+                        hourlyHigh.text("Max. Temperature "+ hourlyMax + " F");
+                        hourlyUl.append(hourlyHigh);
+
+                        var hourlyLow = $("<p>");
+                        hourlyLow.attr("id", "hourlyP")
+                        hourlyLow.text("Min. Temperature " + hourlyMin + " F");
+                        hourlyUl.append(hourlyLow);
+
+                        hourlyForecast.prepend(hourlyUl)
+
+    
+                       }
                         
 
                         // create 1st day forcast===========================////////////////////////
@@ -334,59 +389,7 @@
                         $("#day5").append(tempf4);
 
                         // Hourly List
-                        for ( i = 0; i < response.list.length; i++){
-                            response.list.sort();
-                            
-
-                            // console.log(response.list)
                        
-                           var hourlyUl = $("<div>")
-                           hourlyUl.addClass("row") 
-                           hourlyUl.attr("id", "hourlyId")
-                        //Responses from API
-                        var hourlyImg = response.list[i].weather[0].icon;
-                        var hourlyDescription = response.list[i].weather[0].main;
-                        var hourlyDate = response.list[i].dt_txt;
-                        var hourlyMax = response.list[i].main.temp_max;
-                        var hourlyMin = response.list[i].main.temp_min;
-                        console.log(hourlyDescription)
-                        console.log(hourlyImg)
-                        console.log(hourlyMin)
-                        console.log(hourlyMax)
-                        console.log(hourlyDate);
-
-                       
-                        var hourlyImgdom = $("<img>");
-                        hourlyImgdom.attr("src", "https://openweathermap.org/img/wn/" + hourlyImg + ".png");
-                        hourlyUl.append(hourlyImgdom)
-
-                        
-                        var hourlydecr = $("<p>");
-                        hourlydecr.attr("id", "hourlyP")
-                        hourlydecr.addClass("inline-block")
-                        hourlydecr.text(hourlyDescription);
-                        hourlyUl.append(hourlydecr);
-
-                        var hourlyDte = $("<p>"); 
-                        hourlyDte.attr("id", "hourlyP");                       
-                        hourlyDte.addClass("inline-block")
-                        hourlyDte.text(hourlyDate);
-                        hourlyUl.append(hourlyDte);
-
-                        var hourlyHigh = $("<p>");
-                        hourlyHigh.attr("id", "hourlyP")
-                        hourlyHigh.text("Max. Temperature "+ hourlyMax + " F");
-                        hourlyUl.append(hourlyHigh);
-
-                        var hourlyLow = $("<p>");
-                        hourlyLow.attr("id", "hourlyP")
-                        hourlyLow.text("Min. Temperature " + hourlyMin + " F");
-                        hourlyUl.append(hourlyLow);
-
-                        hourlyForecast.prepend(hourlyUl)
-
-    
-                       }
                        
                             
                             
