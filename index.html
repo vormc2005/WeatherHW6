@@ -100,7 +100,9 @@
                 var weatherScreen = $("div#Weatherreport");
                 var savebtnsDiv = $("div#save-btns");
                 var citiesarr = ["Washington DC", "New York", "Boston"]
-                var lastCity = citiesarr[0]
+
+
+                // var lastCity = citiesarr[0]
            
                 var hourlyForecast = $("div#hourlyDiv");
 
@@ -112,18 +114,30 @@
 
                 }
 
+                //Check array for the last city
+                
+
 
       
 
                 //Rendering forecast function               
                 var renderLast = function () {  
-                    pullStored()
-                                     
-                   
-                    onStart(lastCity)
+                    pullStored()                
+                   console.log(citiesarr)
+                   if(citiesarr[citiesarr.length -1]=== null){
+                    onStart(citiesarr[citiesarr.length -2])
                     savebtnsDiv.html("");
                     $(".forecast").html("");
                     weatherScreen.html("");
+                   }else{
+
+                    console.log(citiesarr[citiesarr.length -1])
+                    onStart(citiesarr[citiesarr.length -1])
+                    savebtnsDiv.html("");
+                    $(".forecast").html("");
+                    weatherScreen.html("");
+                   }
+                  
                    
                    
                     //End of rendering forcast  
