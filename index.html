@@ -32,7 +32,7 @@
                 <div class="col-4 searchcolumn">
                     <!-- search input box -->
                     <div class="inputarea" id="search">
-                        <input type="text" id="city-input" placeholder="Type city">
+                        <input type="text" id="city-input"  placeholder="Type your city">
 
                         <!-- search button -->
                         <input type="submit" class="searchadd" id="searchbtn" Value="Search">
@@ -100,23 +100,27 @@
                 var weatherScreen = $("div#Weatherreport");
                 var savebtnsDiv = $("div#save-btns");
                 var citiesarr = ["Washington DC", "New York", "Boston"]
+                var lastCity = citiesarr[0]
+           
                 var hourlyForecast = $("div#hourlyDiv");
 
-
+             
                 //End of global variables
-                var onStart =()=>{
-                    
-                weatherLookUp("Ashburn");
-                fiveDays("Ashburn");
+                var onStart =(str)=>{               
+                weatherLookUp(str);
+                fiveDays(str);
 
                 }
 
 
-
+      
 
                 //Rendering forecast function               
-                var renderLast = function () {
-                    onStart("")
+                var renderLast = function () {  
+                    pullStored()
+                                     
+                   
+                    onStart(lastCity)
                     savebtnsDiv.html("");
                     $(".forecast").html("");
                     weatherScreen.html("");
@@ -127,11 +131,18 @@
                     //creating buttons for cities
                     $.each(citiesarr, function (idx, city) {
                         var btn = $("<button>");
+                        if (!city){
+                           return
+                        }else{
                         btn.text(city);
                         btn.attr("id", "choices-" + idx)
                         btn.addClass("nav-link hit-api");
                         btn.width("250px")
                         savebtnsDiv.append(btn);
+
+
+                        }
+                       
 
                     })
 
@@ -240,11 +251,11 @@
                         var hourlyDate = response.list[i].dt_txt;
                         var hourlyMax = response.list[i].main.temp_max;
                         var hourlyMin = response.list[i].main.temp_min;
-                        console.log(hourlyDescription)
-                        console.log(hourlyImg)
-                        console.log(hourlyMin)
-                        console.log(hourlyMax)
-                        console.log(hourlyDate);
+                        // console.log(hourlyDescription)
+                        // console.log(hourlyImg)
+                        // console.log(hourlyMin)
+                        // console.log(hourlyMax)
+                        // console.log(hourlyDate);
 
                         var hourlyDte = $("<p>"); 
                         hourlyDte.attr("id", "hourlyP");                       
@@ -411,10 +422,11 @@
                     var city = $("#city-input").val();
                     if (city === "") {
                         alert("Please type city name");
+                        location.reload();
                         return;
                     } else {
                       
-                        hourlyForecast.html("");  
+                    hourlyForecast.html("");  
                     $(".forecast").html("");
                     weatherScreen.html("")
                     citiesarr.push(city);
@@ -440,7 +452,7 @@
           
                }
                               
-               pullStored();
+            
                
                    
                     $("div#save-btns").on("click", "button.hit-api", function (e) {
